@@ -1,15 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { User } from './model/user.model';
 import { Employee } from './model/employee.model';
+import { UserService } from './user.service';
+import { MethodEnum } from './enum/method.enum';
 
 @Controller('user')
 export class UserController {
 
-  constructor() {}
+  constructor(private readonly service: UserService) {}
 
-  @Post('')
+  @Post('/')
   public createUser(@Body() user: User) {    
-    return null;
+    return this.service.create(user);
   }
 
   @Delete(':id')
