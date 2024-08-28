@@ -3,6 +3,7 @@ import { User } from './model/user.model';
 import { Employee } from './model/employee.model';
 import { UserService } from './user.service';
 import { MethodEnum } from './enum/method.enum';
+import { UserDto } from 'src/repository/database.mongo/schema/user.schema';
 
 @Controller('user')
 export class UserController {
@@ -10,7 +11,7 @@ export class UserController {
   constructor(private readonly service: UserService) {}
 
   @Post('/')
-  public createUser(@Body() user: User) {    
+  public createUser(@Body() user: UserDto) {    
     return this.service.create(user);
   }
 

@@ -11,15 +11,17 @@ export class UserService {
 
   constructor(
     private readonly config: ConfigService,
-    @InjectModel(UserDto.name) private userModel: Model<UserDto>
+    @InjectModel(UserDto.name) private readonly userModel: Model<UserDto>
   ) {}
   
   public handle() {
     return NotImplementedException;
   }
 
-  public async create(user: User) {
-    //const createUser = await this.userModel.create(user)
+  public async create(user: UserDto) {
+    const createUser = await this.userModel.create(user)
+    console.log(createUser);
+    
     return null;
   }
 
