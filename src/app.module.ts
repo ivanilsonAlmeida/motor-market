@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
+
+const configService = new ConfigService();
 
 @Module({
   imports: [
@@ -13,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
       load: [configuration]
     }),
-    MongooseModule.forRoot('mongodb://localhost/local')
+    MongooseModule.forRoot(`${configService.get('DATA_BASE_BASE_URL_LOCAL')}${configService.get('DATA_BASE')}`)
   ],
   controllers: [AppController],
   providers: [AppService],

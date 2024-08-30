@@ -1,36 +1,38 @@
+import { Prop, Schema } from "@nestjs/mongoose";
+
 export class User {
-  private name: string;
-  private email: string;
-  private password: string;
+  private _name: string;
+  private _email: string;
+  private _password: string;
 
   constructor(name: string, email: string, password: string) {
-    this.name = name;
-    this.email = email;
-    this.password = password;
+    this._name = name;
+    this._email = email;
+    this._password = password;
   }
 
   get getName(): string {
-    return this.name;
+    return this._name;
   }
 
   set setName(name: string) {
-    this.name = name;
+    this._name = name;
   }
 
   get getEmail(): string {
-    return this.email;
+    return this._email;
   }
 
   set setEmail(email: string) {
-    this.email = email;
+    this._email = email;
   }
 
   get getPassword(): string {
-    return this.password;
+    return this._password;
   }
 
   set setPassword(password: string) {
-    this.password = password;
+    this._password = password;
   }
 
 }
