@@ -14,23 +14,23 @@ export class UserController {
     return this.service.create(user);
   }
 
-  @Delete(':id')
-  public deleteUser(@Param('id') id: number) {
-    return null;
+  @Delete(':email')
+  public deleteUser(@Param('email') email: string) {
+    return this.service.delete(email);
   }
 
-  @Put(':id')
-  public updateUser(@Param('id') id: number, @Body() user: User) {
-    return null;
+  @Put(':email')
+  public updateUser(@Param('email') email: string, @Body() user: User) {
+    return this.service.update(email, user);
   }
 
   @Get('/users')
   public listUser() {
-    return null;
+    return this.service.findAll();
   }
 
-  @Get(':id')
-  public getUser(@Param('id') id: number) {
-    return null;
+  @Get(':email')
+  public getUser(@Param('email') email: string) {
+    return this.service.find(email);
   }
 }

@@ -11,19 +11,19 @@ export class Employee extends User {
     this._userRole = userRole;
   }
 
-  get getRegistration(): number {
+  get registration(): number {
     return this._registration;
   }
 
-  set setRegistration(registration: number) {
+  set registration(registration: number) {
     this._registration = registration;
   }
 
-  get getuserRole(): string {
+  get userRole(): string {
     return this._userRole;
   }
 
-  set setuserRole(userRole: string) {
+  set userRole(userRole: string) {
     this._userRole = userRole;
   }
 }

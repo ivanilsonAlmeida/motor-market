@@ -11,27 +11,27 @@ export class User {
     this._password = password;
   }
 
-  get getName(): string {
+  get name(): string {
     return this._name;
   }
 
-  set setName(name: string) {
+  set name(name: string) {
     this._name = name;
   }
 
-  get getEmail(): string {
+  get email(): string {
     return this._email;
   }
 
-  set setEmail(email: string) {
+  set email(email: string) {
     this._email = email;
   }
 
-  get getPassword(): string {
+  get password(): string {
     return this._password;
   }
 
-  set setPassword(password: string) {
+  set password(password: string) {
     this._password = password;
   }
 
