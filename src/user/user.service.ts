@@ -1,27 +1,25 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { User } from './model/user.model';
 import { IUser } from './interface/user.interface';
 import { IResponse } from './response/message.response';
+import { UserRepository } from 'src/repository/database.mongo/user.repository';
 
 @Injectable()
 export class UserService {
 
   constructor(
-    private readonly config: ConfigService,
-    @InjectModel(User.name) private readonly userModel: Model<User>
+    private readonly repository: UserRepository
   ) {}
 
   public async create(user: User): Promise<IResponse> {
     try {
-      const userCreated = await this.userModel.create(user);      
+      const userCreated = await this.repository.create(user);
       
       if (!userCreated) {
         return;
       }      
-      
+
       return {
         message: `User ${user.name} created successfully!`
       }
@@ -33,21 +31,15 @@ export class UserService {
 
   public async update(email: string, user: User): Promise<IResponse> {
     try {
-      const userFind: User = await this.userModel.findOne({
-        email
-      });
+     const findUser = await this.repository.findUser(email)
 
-      if (!userFind) {
+      if (!findUser) {
         return {
           message: `User ${email} don't finded!`
         };
       }
 
-      const userUpdated = await this.userModel.updateOne({
-        name: user.name,
-        email: user.email,
-        password: user.password
-      })
+      const userUpdated = await this.repository.update(user);
 
       if (!userUpdated.matchedCount) {
         return {
@@ -68,19 +60,15 @@ export class UserService {
   public async delete(email: string): Promise<IResponse> {
     try {
 
-      const findUser: User = await this.userModel.findOne({
-        email
-      });
+      const findUser = await this.repository.findUser(email);
       
       if (!findUser) {
         return {
           message: `User ${email} don't finded!`
         };
       }
-      
-      const userDeleted = await this.userModel.deleteOne({
-        email
-      });
+
+      const userDeleted = await this.repository.delete(email);
 
       if (!userDeleted.deletedCount) {
         return {
@@ -99,8 +87,7 @@ export class UserService {
 
   public async findAll(): Promise<Array<IUser>> {
     try {
-
-      const users: User[] = await this.userModel.find();
+      const users = await this.repository.findAll();
 
       if (!users) {
         return;
@@ -121,10 +108,7 @@ export class UserService {
 
   public async find(email: string): Promise<IUser> {
     try {
-
-      const user: User = await this.userModel.findOne({
-        email
-      });
+     const user = await this.repository.findUser(email);
 
       return {
         name: user.name,
