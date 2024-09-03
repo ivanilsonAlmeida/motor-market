@@ -1,5 +1,3 @@
-import { Prop, Schema } from "@nestjs/mongoose";
-
 export class User {
   private _name: string;
   private _email: string;

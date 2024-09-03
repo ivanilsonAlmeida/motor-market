@@ -1,4 +1,3 @@
-import { Prop, Schema } from "@nestjs/mongoose";
 import { User } from "./user.model";
 
 export class Employee extends User {

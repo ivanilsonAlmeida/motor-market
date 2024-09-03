@@ -1,9 +1,9 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 import { User } from './model/user.model';
 import { IUser } from './interface/user.interface';
-import { IResponse } from './response/message.response';
-import { UserRepository } from 'src/repository/database.mongo/user.repository';
+import { IResponse } from '../shared/interface/response.interface';
+import { UserRepository } from 'src/repository/mongodb/user.repository';
+
 
 @Injectable()
 export class UserService {
