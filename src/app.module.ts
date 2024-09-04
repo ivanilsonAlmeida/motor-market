@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RepositoryModule } from './repository/repository.module';
+import { EmployeeModule } from './employee/employee.module';
+import { AdminModule } from './admin/admin.module';
 
 const configService = new ConfigService();
 
@@ -17,7 +19,9 @@ const configService = new ConfigService();
       load: [configuration]
     }),
     MongooseModule.forRoot(`${configService.get('DATA_BASE_BASE_URL_LOCAL')}${configService.get('DATA_BASE')}`),
-    RepositoryModule
+    RepositoryModule,
+    EmployeeModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

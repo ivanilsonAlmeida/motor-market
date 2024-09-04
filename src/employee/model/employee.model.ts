@@ -1,4 +1,4 @@
-import { User } from "./user.model";
+import { User } from "../../user/model/user.model";
 
 export class Employee extends User {
   private _registration: number;

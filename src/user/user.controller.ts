@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { User } from './model/user.model';
-import { Employee } from './model/employee.model';
+import { Employee } from '../employee/model/employee.model';
 import { UserService } from './user.service';
 import { MethodEnum } from './enum/method.enum';
 

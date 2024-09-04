@@ -1,32 +1,63 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Employee } from 'src/user/model/employee.model';
+import { Employee } from 'src/employee/model/employee.model';
 
 @Injectable()
 export class EmployeeRepository {
 
   constructor(
-    @InjectModel(Employee.name) private readonly userModel: Model<Employee>
+    @InjectModel(Employee.name) private readonly employeeModel: Model<Employee>
   ) {}
 
-  public async create() {
-    return NotImplementedException;
+  public async create(employee: Employee) {
+    try {
+      return this.employeeModel.create(employee);
+    } catch (error) {
+      console.error(`An error occurred in the repository: ${error}`);
+      return error?.data;
+    }
   }
 
-  public async update() {
-    return NotImplementedException;
+  public async update(registration: number) {
+    try {
+      return this.employeeModel.updateOne({
+        registration
+      });
+    } catch (error) {
+      console.error(`An error occurred in the repository: ${error}`);
+      return error?.data;
+    }
   }
 
-  public async delete() {
-    return NotImplementedException;
+  public async delete(registration: number) {
+    try {
+      return this.employeeModel.deleteOne({
+        registration
+      });
+    } catch (error) {
+      console.error(`An error occurred in the repository: ${error}`);
+      return error?.data;
+    }
   }
 
-  public async findOne() {
-    return NotImplementedException;
+  public async findOne(registration: number) {
+    try {
+      return this.employeeModel.findOne({
+        registration
+      });
+    } catch (error) {
+      console.error(`An error occurred in the repository: ${error}`);
+      return error?.data;
+    }
   }
 
   public async findAll() {
-    return NotImplementedException;
+    try {
+      return this.employeeModel.find();
+    } catch (error) {
+      console.error(`An error occurred in the repository: ${error}`);
+      return error?.data;
+    }
   }
 }

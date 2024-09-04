@@ -12,7 +12,7 @@ export class UserRepository {
 
   public async create(user: User) {
     try {
-      return await this.userModel.create(user); 
+      return this.userModel.create(user); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
@@ -21,7 +21,7 @@ export class UserRepository {
 
   public async delete(email: string) {
     try {
-      return await this.userModel.deleteOne({
+      return this.userModel.deleteOne({
         email
       });
     } catch (error) {
@@ -32,7 +32,7 @@ export class UserRepository {
 
   public async update(user: User) {
     try {
-      return await this.userModel.updateOne({
+      return this.userModel.updateOne({
         name: user.name,
         email: user.email,
         password: user.password
@@ -46,7 +46,7 @@ export class UserRepository {
 
   public async findUser(email: string) {
     try {
-      return await this.userModel.findOne({
+      return this.userModel.findOne({
         email
       });
     } catch (error) {
@@ -57,7 +57,7 @@ export class UserRepository {
 
   public async findAll() {
     try {
-      return await this.userModel.find(); 
+      return this.userModel.find(); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
