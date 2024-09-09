@@ -1,4 +1,34 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotImplementedException, Param, Post, Put } from '@nestjs/common';
+import { EmployeeService } from './employee.service';
+import { Employee } from './model/employee.model';
 
 @Controller('employee')
-export class EmployeeController {}
+export class EmployeeController {
+
+  constructor(private readonly service: EmployeeService) {}
+
+  @Post('/')
+  public createEmployee(@Body() employee: Employee) {
+    return this.service.create(employee);
+  }
+
+  @Delete(':registration')
+  public updateEmployee(@Param('registration') registration: number, @Body() employee: Employee) {
+    return this.service.update(registration, employee);
+  }
+
+  @Put(':registration')
+  public deleteEmployee(@Param('registration') registration: number) {
+    return this.service.delete(registration);
+  }
+
+  @Get('/employees')
+  public listEmployee() {
+    return this.service.findAll();
+  }
+
+  @Get(':registration')
+  public getEmployee(@Param('registration') registration: number) {
+    return this.service.find(registration);
+  }
+}
