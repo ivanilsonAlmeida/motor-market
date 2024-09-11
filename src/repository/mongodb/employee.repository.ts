@@ -19,10 +19,14 @@ export class EmployeeRepository {
     }
   }
 
-  public async update(registration: number) {
+  public async update(employee: Employee) {
     try {
       return this.employeeModel.updateOne({
-        registration
+        name: employee.name,
+        email: employee.email,
+        password: employee.password,
+        registration: employee.registration,
+        userRole: employee.userRole
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);

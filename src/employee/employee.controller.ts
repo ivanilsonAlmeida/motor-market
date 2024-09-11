@@ -12,12 +12,14 @@ export class EmployeeController {
     return this.service.create(employee);
   }
 
-  @Delete(':registration')
+  @Put(':registration')
   public updateEmployee(@Param('registration') registration: number, @Body() employee: Employee) {
+    console.log(registration);
+    
     return this.service.update(registration, employee);
   }
 
-  @Put(':registration')
+  @Delete(':registration')
   public deleteEmployee(@Param('registration') registration: number) {
     return this.service.delete(registration);
   }
