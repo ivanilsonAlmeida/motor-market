@@ -4,7 +4,6 @@ import { IUser } from './interface/user.interface';
 import { IResponse } from '../shared/interface/response.interface';
 import { UserRepository } from 'src/repository/mongodb/user.repository';
 
-
 @Injectable()
 export class UserService {
 
@@ -18,7 +17,7 @@ export class UserService {
       
       if (!userCreated) {
         return;
-      }      
+      }
 
       return {
         message: `User ${user.name} created successfully!`

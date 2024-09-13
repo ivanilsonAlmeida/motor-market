@@ -14,8 +14,6 @@ export class EmployeeController {
 
   @Put(':registration')
   public updateEmployee(@Param('registration') registration: number, @Body() employee: Employee) {
-    console.log(registration);
-    
     return this.service.update(registration, employee);
   }
 
