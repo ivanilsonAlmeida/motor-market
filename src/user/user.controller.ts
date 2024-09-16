@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { User } from './model/user.model';
 import { Employee } from '../employee/model/employee.model';
 import { UserService } from './user.service';
 import { MethodEnum } from './enum/method.enum';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -24,6 +25,7 @@ export class UserController {
     return this.service.update(email, user);
   }
 
+  @UseGuards(AuthGuard)
   @Get('/users')
   public listUser() {
     return this.service.findAll();
