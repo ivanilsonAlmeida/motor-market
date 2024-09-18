@@ -10,16 +10,19 @@ export class UserController {
 
   constructor(private readonly service: UserService) {}
 
+  @UseGuards(AuthGuard)
   @Post('/')
   public createUser(@Body() user: User) {    
     return this.service.create(user);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':email')
   public deleteUser(@Param('email') email: string) {
     return this.service.delete(email);
   }
 
+  @UseGuards(AuthGuard)
   @Put(':email')
   public updateUser(@Param('email') email: string, @Body() user: User) {
     return this.service.update(email, user);
@@ -31,6 +34,7 @@ export class UserController {
     return this.service.findAll();
   }
 
+  @UseGuards(AuthGuard)
   @Get(':email')
   public getUser(@Param('email') email: string) {
     return this.service.find(email);
