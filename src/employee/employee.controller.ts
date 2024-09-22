@@ -32,12 +32,14 @@ export class EmployeeController {
   }
 
   @UseGuards(AuthGuard)
+  @Roles(RoleEnum.USER)
   @Get('/employees')
   public listEmployee() {
     return this.service.findAll();
   }
 
   @UseGuards(AuthGuard)
+  @Roles(RoleEnum.USER)
   @Get(':registration')
   public getEmployee(@Param('registration') registration: number) {
     return this.service.find(registration);
