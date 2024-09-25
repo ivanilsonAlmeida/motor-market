@@ -1,4 +1,5 @@
 export interface IVehicle {
+  chassi: string;
   model: string;
   brand: string;
   year: number;

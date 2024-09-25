@@ -1,4 +1,5 @@
 export class Vehicle {
+  private _chassi: string;
   private _model: string;
   private _brand: string;
   private _year: number;
@@ -7,6 +8,7 @@ export class Vehicle {
   private _hp: string;
   
   constructor(
+    chassi: string,
     model: string, 
     brand: string, 
     year: number, 
@@ -14,12 +16,21 @@ export class Vehicle {
     motor: string, 
     hp: string
   ) {
+    this._chassi = chassi;
     this._model = model;
     this._brand = brand;
     this._year = year;
     this._color = color;
     this._motor = motor;
     this._hp = hp;
+  }
+
+  get chassi(): string {
+    return this._chassi;
+  }
+
+  set chassi(chassi: string) {
+    this._chassi = chassi;
   }
 
   get model(): string {

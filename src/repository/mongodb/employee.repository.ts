@@ -2,15 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Employee } from 'src/employee/model/employee.model';
+import { Repository } from './interface/repository.interface';
 
 @Injectable()
-export class EmployeeRepository {
+export class EmployeeRepository implements Repository<Employee> {
 
   constructor(
     @InjectModel(Employee.name) private readonly employeeModel: Model<Employee>
   ) {}
 
-  public async create(employee: Employee) {
+  public create(employee: Employee) {
     try {
       return this.employeeModel.create(employee);
     } catch (error) {
@@ -19,7 +20,7 @@ export class EmployeeRepository {
     }
   }
 
-  public async update(employee: Employee) {
+  public update(employee: Employee) {
     try {
       return this.employeeModel.updateOne({
         name: employee.name,
@@ -34,7 +35,7 @@ export class EmployeeRepository {
     }
   }
 
-  public async delete(registration: number) {
+  public delete(registration: number) {
     try {
       return this.employeeModel.deleteOne({
         registration
@@ -45,7 +46,7 @@ export class EmployeeRepository {
     }
   }
 
-  public async findOne(registration: number) {
+  public findOne(registration: number) {
     try {
       return this.employeeModel.findOne({
         registration
@@ -56,7 +57,7 @@ export class EmployeeRepository {
     }
   }
 
-  public async findAll() {
+  public findAll() {
     try {
       return this.employeeModel.find();
     } catch (error) {

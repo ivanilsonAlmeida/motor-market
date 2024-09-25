@@ -30,7 +30,7 @@ export class UserService {
 
   public async update(email: string, user: User): Promise<IResponse> {
     try {
-     const findUser = await this.repository.findUser(email)
+     const findUser = await this.repository.findOne(email)
 
       if (!findUser) {
         return {
@@ -59,7 +59,7 @@ export class UserService {
   public async delete(email: string): Promise<IResponse> {
     try {
 
-      const findUser = await this.repository.findUser(email);
+      const findUser = await this.repository.findOne(email);
       
       if (!findUser) {
         return {
@@ -107,7 +107,7 @@ export class UserService {
 
   public async find(email: string): Promise<IUser> {
     try {
-     const user = await this.repository.findUser(email);
+     const user = await this.repository.findOne(email);
 
       return {
         name: user.name,

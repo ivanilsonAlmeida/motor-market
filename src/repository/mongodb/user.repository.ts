@@ -1,17 +1,17 @@
-import { Injectable, NotImplementedException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/user/model/user.model";
 import { Repository } from "./interface/repository.interface";
 
 @Injectable()
-export class UserRepository {
+export class UserRepository implements Repository<User> {
 
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
 
-  public async create(user: User) {
+  public create(user: User) {
     try {
       return this.userModel.create(user); 
     } catch (error) {
@@ -20,7 +20,7 @@ export class UserRepository {
     }
   }
 
-  public async delete(email: string) {
+  public delete(email: string) {
     try {
       return this.userModel.deleteOne({
         email
@@ -31,7 +31,7 @@ export class UserRepository {
     }
   }
 
-  public async update(user: User) {
+  public update(user: User) {
     try {
       return this.userModel.updateOne({
         name: user.name,
@@ -45,7 +45,7 @@ export class UserRepository {
     }
   }
 
-  public async findUser(email: string) {
+  public findOne(email: string) {
     try {
       return this.userModel.findOne({
         email
@@ -56,7 +56,7 @@ export class UserRepository {
     }
   }
 
-  public async findAll() {
+  public findAll() {
     try {
       return this.userModel.find(); 
     } catch (error) {
