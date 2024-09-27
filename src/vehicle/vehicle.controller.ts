@@ -1,5 +1,6 @@
-import { Controller, NotImplementedException } from '@nestjs/common';
+import { Body, Controller, Get, NotImplementedException, Param, Post, Put } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
+import { Vehicle } from './model/vehicle.model';
 
 @Controller('vehicle')
 export class VehicleController {
@@ -8,19 +9,23 @@ export class VehicleController {
     private readonly service: VehicleService
   ) {}
 
-  public createVehicle() {
-    return NotImplementedException;
+  @Post('/')
+  public createVehicle(@Body() vehicle: Vehicle) {
+    return this.service.create(vehicle);
   }
   
-  public updateVehicle() {
-    return NotImplementedException;
+  @Put(':chassi')
+  public updateVehicle(@Param('chassi') chassi: string, @Body() vehicle: Vehicle) {
+    return this.service.update(chassi, vehicle);
   }
 
+  @Get('vehicles')
   public listVehicle() {
-    return NotImplementedException;
+    return this.service.findAll();
   }
 
-  public getVehicle() {
-    return NotImplementedException;
+  @Get(':chassi')
+  public getVehicle(@Param('chassi') chassi: string) {
+    return this.service.find();
   }
 }
