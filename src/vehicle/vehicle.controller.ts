@@ -26,6 +26,6 @@ export class VehicleController {
 
   @Get(':chassi')
   public getVehicle(@Param('chassi') chassi: string) {
-    return this.service.find();
+    return this.service.find(chassi);
   }
 }
