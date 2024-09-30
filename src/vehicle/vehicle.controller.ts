@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotImplementedException, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from './model/vehicle.model';
 import { Roles } from 'src/auth/roles/role.decorator';

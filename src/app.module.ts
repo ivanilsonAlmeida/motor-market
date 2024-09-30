@@ -8,6 +8,7 @@ import { RepositoryModule } from './repository/repository.module';
 import { EmployeeModule } from './employee/employee.module';
 import { AuthModule } from './auth/auth.module';
 import { VehicleModule } from './vehicle/vehicle.module';
+import { SaleModule } from './sale/sale.module';
 
 const configService = new ConfigService();
 
@@ -23,7 +24,8 @@ const configService = new ConfigService();
     RepositoryModule,
     EmployeeModule,
     AuthModule,
-    VehicleModule
+    VehicleModule,
+    SaleModule
   ],
   controllers: [AppController],
   providers: [AppService],
