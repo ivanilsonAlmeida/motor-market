@@ -9,6 +9,7 @@ import { EmployeeModule } from './employee/employee.module';
 import { AuthModule } from './auth/auth.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { SaleModule } from './sale/sale.module';
+import { PaymentModule } from './payment/payment.module';
 
 const configService = new ConfigService();
 
@@ -25,7 +26,8 @@ const configService = new ConfigService();
     EmployeeModule,
     AuthModule,
     VehicleModule,
-    SaleModule
+    SaleModule,
+    PaymentModule
   ],
   controllers: [AppController],
   providers: [AppService],
