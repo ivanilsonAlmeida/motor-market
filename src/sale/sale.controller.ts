@@ -1,29 +1,32 @@
 import { Body, Controller, Get, NotImplementedException, Param, Post, Put } from '@nestjs/common';
 import { Sale } from './model/sale.model';
+import { SaleService } from './sale.service';
 
 @Controller('sale')
 export class SaleController {
 
-  constructor() {}
+  constructor(
+    private readonly saleService: SaleService
+  ) {}
 
 
   @Post('/')
   public register(@Body() sale: Sale) {
-    return NotImplementedException;
+    return this.saleService.registerSale(sale);
   }
 
   @Put(':registration')
   public checkout(@Param('registration') registration: number, @Body() sale: Sale) {
-    return NotImplementedException;
+    return this.saleService.confirmSale(registration, sale);
   }
 
   @Get('sales')
   public listAllSale() {
-    return NotImplementedException;
+    return this.saleService.allSales();
   }
 
   @Get(':registration')
   public getSale(@Param('registration') registration: number) {
-    return NotImplementedException;
+    return this.saleService.getSaleByRegistration(registration);
   }
 }
