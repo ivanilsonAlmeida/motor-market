@@ -1,4 +1,5 @@
 import { Vehicle } from "src/vehicle/model/vehicle.model";
+import { SaleStateEnum } from "../enum/sale.state";
 
 export class Sale {
   private _registration: number;
@@ -6,19 +7,22 @@ export class Sale {
   private _totalPrice: number;
   private _payment: string;
   private _vehicle: Vehicle;
+  private _state: SaleStateEnum;
 
   constructor(
     registration: number,
     nameClient: string,
     totalPrice: number,
     payment: string,
-    vehicle: Vehicle
+    vehicle: Vehicle,
+    state: SaleStateEnum
   ) {
       this._registration = registration;
       this._nameClient = nameClient;
       this._totalPrice = totalPrice;
       this._payment = payment;
       this._vehicle = vehicle;
+      this._state = state
   }
 
   get registration(): number {
@@ -59,5 +63,13 @@ export class Sale {
 
   set vehicle(vehicle: Vehicle) {
     this._vehicle = vehicle;
+  }
+
+  get state(): SaleStateEnum {
+    return this._state;
+  }
+
+  set state(state: SaleStateEnum) {
+    this._state = state;
   }
 }
