@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { Sale } from './model/sale.model';
 import { SaleRepository } from 'src/repository/mongodb/sale.repository';
+import { ISale } from './interface/sale.interface';
 
 @Injectable()
 export class SaleService {
@@ -11,12 +12,7 @@ export class SaleService {
 
   public async registerSale(sale: Sale) {
     try {
-      const registerSale = await this.repository.create(sale);
-
-      if (!registerSale) {
-        return;
-      }
-
+      return NotImplementedException;
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -25,25 +21,47 @@ export class SaleService {
 
   public async confirmSale(registration: number, sale: Sale) {
     try {
-      throw new Error('Method not implemented.');
+      return NotImplementedException;
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
     }
   }
 
-  public async getSaleByRegistration(registration: number) {
+  public async getSaleByRegistration(registration: number): Promise<ISale> {
     try {
-      throw new Error('Method not implemented.');
+      const sale = await this.repository.findOne(registration);
+
+      return {
+        registration: sale.registration,
+        nameClient: sale.nameClient,
+        totalPrice: sale.totalPrice,
+        payment: sale.payment,
+        vehicle: sale.vehicle
+      }
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
     }
   }
 
-  public async allSales() {
+  public async allSales(): Promise<Array<ISale>> {
     try {
-      throw new Error('Method not implemented.');
+      const sales = await this.repository.findAll();
+
+      if (!sales) {
+        return;
+      }
+
+      return sales.map((sale: Sale) => {
+        return {
+          registration: sale.registration,
+          nameClient: sale.nameClient,
+          totalPrice: sale.totalPrice,
+          payment: sale.payment,
+          vehicle: sale.vehicle
+        }
+      });
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;

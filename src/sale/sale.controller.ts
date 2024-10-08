@@ -9,7 +9,6 @@ export class SaleController {
     private readonly saleService: SaleService
   ) {}
 
-
   @Post('/')
   public register(@Body() sale: Sale) {
     return this.saleService.registerSale(sale);
