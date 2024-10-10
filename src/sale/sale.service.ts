@@ -2,6 +2,7 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { Sale } from './model/sale.model';
 import { SaleRepository } from 'src/repository/mongodb/sale.repository';
 import { ISale } from './interface/sale.interface';
+import { SaleStateEnum } from './enum/sale.state';
 
 @Injectable()
 export class SaleService {
@@ -21,7 +22,15 @@ export class SaleService {
 
   public async confirmSale(registration: number, sale: Sale) {
     try {
-      return NotImplementedException;
+      const currentFinded: Sale = await this.repository.findOne(registration);
+
+      if (!currentFinded) {
+        return;
+      }
+
+      currentFinded.state = SaleStateEnum.APPROVED;
+
+      return this.repository.update(currentFinded);
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
