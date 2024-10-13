@@ -3,17 +3,25 @@ import { Sale } from './model/sale.model';
 import { SaleRepository } from 'src/repository/mongodb/sale.repository';
 import { ISale } from './interface/sale.interface';
 import { SaleStateEnum } from './enum/sale.state';
+import { PaymentService } from 'src/payment/payment.service';
+import { Payment } from 'src/payment/model/payment.model';
+import { log } from 'console';
 
 @Injectable()
 export class SaleService {
 
   constructor(
-    private readonly repository: SaleRepository
+    private readonly repository: SaleRepository,
+    private readonly paymentService: PaymentService
   ) {}
 
   public async registerSale(sale: Sale) {
-    try {
-      return NotImplementedException;
+    try {      
+      sale.state = SaleStateEnum.PENDENT;
+      const saleRegister: Sale = await this.repository.create(sale);
+      const paymentOrder = this.paymentService.paymentOrder(sale.payment);
+
+
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;

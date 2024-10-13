@@ -1,11 +1,12 @@
 import { Vehicle } from "src/vehicle/model/vehicle.model";
 import { SaleStateEnum } from "../enum/sale.state";
+import { Payment } from "src/payment/model/payment.model";
 
 export class Sale {
   private _registration: number;
   private _nameClient: string;
   private _totalPrice: number;
-  private _payment: string;
+  private _payment: Payment;
   private _vehicle: Vehicle;
   private _state: SaleStateEnum;
 
@@ -13,7 +14,7 @@ export class Sale {
     registration: number,
     nameClient: string,
     totalPrice: number,
-    payment: string,
+    payment: Payment,
     vehicle: Vehicle,
     state: SaleStateEnum
   ) {
@@ -49,11 +50,11 @@ export class Sale {
     this._totalPrice = totalPrice;
   }
 
-  get payment(): string {
+  get payment(): Payment {
     return this._payment;
   }
 
-  set payment(payment: string) {
+  set payment(payment: Payment) {
     this._payment = payment;
   }
 
