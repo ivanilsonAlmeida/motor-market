@@ -18,7 +18,9 @@ export class SaleService {
   public async registerSale(sale: Sale) {
     try {      
       sale.state = SaleStateEnum.PENDENT;
+
       const saleRegister: Sale = await this.repository.create(sale);
+
       const paymentOrder = this.paymentService.paymentOrder(sale.payment);
 
 

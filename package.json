@@ -26,6 +26,8 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.0.0",
+    "amqp-connection-manager": "^4.1.14",
+    "amqplib": "^0.10.4",
     "mongoose": "^8.6.0",
     "motor-market": "file:",
     "reflect-metadata": "^0.2.0",

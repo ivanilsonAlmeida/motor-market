@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { Payment } from "src/payment/model/payment.model";
+import { SaleStateEnum } from "src/sale/enum/sale.state";
 import { Vehicle } from "src/vehicle/model/vehicle.model";
 
 export type SaleSchema = HydratedDocument<SaleDto>;
@@ -16,10 +18,13 @@ export class SaleDto {
   totalPrice: number;
 
   @Prop()
-  payment: string;
+  payment: Payment;
 
   @Prop()
   vehicle: Vehicle;
+
+  @Prop()
+  state: SaleStateEnum;
 }
 
 export const SaleSchema = SchemaFactory.createForClass(SaleDto);
