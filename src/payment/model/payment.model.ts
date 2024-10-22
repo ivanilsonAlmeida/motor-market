@@ -1,3 +1,4 @@
+import { StatusPaymentEnum } from "../enum/status-payment.enum";
 import { TypePaymentEnum } from "../enum/type-payment.enum";
 
 export class Payment {
@@ -5,17 +6,20 @@ export class Payment {
   private _typePayment: TypePaymentEnum;
   private _paymentInstallments: string;
   private _priceInstallments: number;
+  private _statusPayment: StatusPaymentEnum
 
   constructor(
     totalValue: number,
     typePayment: TypePaymentEnum,
     paymentInstallments: string,
-    priceInstallments: number
+    priceInstallments: number,
+    statusPayment: StatusPaymentEnum
   ) {
     this._totalValue = totalValue;
     this._typePayment = typePayment;
     this._paymentInstallments = paymentInstallments;
     this._priceInstallments = priceInstallments;
+    this._statusPayment = statusPayment
   }
 
   get totalValue(): number {
@@ -48,5 +52,13 @@ export class Payment {
 
   set priceInstallments(priceInstallments: number) {
     this._priceInstallments = priceInstallments;
+  }
+
+  get statusPayment(): StatusPaymentEnum {
+    return this._statusPayment;
+  }
+
+  set statusPayment(statusPayment: StatusPaymentEnum) {
+    this._statusPayment = statusPayment;
   }
 }
