@@ -1,6 +1,6 @@
-export class TypePaymentEnum {
-  PIX = 'PIX';
-  CREDIT = 'CREDIT';
-  CHECK = 'CHECK';
-  DEBIT = 'DEBIT';
+export enum TypePaymentEnum {
+  PIX = 'PIX',
+  CREDIT = 'CREDIT',
+  CHECK = 'CHECK',
+  DEBIT = 'DEBIT',
 }

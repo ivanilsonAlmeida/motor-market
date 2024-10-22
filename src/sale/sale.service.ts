@@ -6,6 +6,7 @@ import { SaleStateEnum } from './enum/sale.state';
 import { PaymentService } from 'src/payment/payment.service';
 import { Payment } from 'src/payment/model/payment.model';
 import { log } from 'console';
+import { StatusPaymentEnum } from 'src/payment/enum/status-payment.enum';
 
 @Injectable()
 export class SaleService {
@@ -15,14 +16,26 @@ export class SaleService {
     private readonly paymentService: PaymentService
   ) {}
 
-  public async registerSale(sale: Sale) {
+  public async registerSale(sale: Sale): Promise<ISale> {
     try {      
       sale.state = SaleStateEnum.PENDENT;
 
       const saleRegister: Sale = await this.repository.create(sale);
 
-      const paymentOrder = this.paymentService.paymentOrder(sale.payment);
+      const paymentOrder: Payment = this.paymentService.paymentOrder(saleRegister.payment);
 
+      if (
+        paymentOrder.statusPayment === StatusPaymentEnum.REPROVED ||
+        paymentOrder.statusPayment === StatusPaymentEnum.PENDENT
+      ) {
+        return {
+          message: `Payment for sale ${saleRegister.registration} not found.`,
+          sale: null
+        };
+      }
+
+      saleRegister.payment = paymentOrder;
+      const confirmSale = await this.confirmSale(saleRegister.registration, saleRegister);
 
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -30,7 +43,7 @@ export class SaleService {
     }
   }
 
-  public async confirmSale(registration: number, sale: Sale) {
+  public async confirmSale(registration: number, sale: Sale): Promise<ISale> {
     try {
       const currentFinded: Sale = await this.repository.findOne(registration);
 
@@ -52,11 +65,15 @@ export class SaleService {
       const sale = await this.repository.findOne(registration);
 
       return {
-        registration: sale.registration,
-        nameClient: sale.nameClient,
-        totalPrice: sale.totalPrice,
-        payment: sale.payment,
-        vehicle: sale.vehicle
+        message: `Sale ${registration} finded successfully!`,
+        sale: {
+          registration: sale.registration,
+          nameClient: sale.nameClient,
+          totalPrice: sale.totalPrice,
+          payment: sale.payment,
+          vehicle: sale.vehicle,
+          state: sale.state
+        }
       }
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -74,11 +91,15 @@ export class SaleService {
 
       return sales.map((sale: Sale) => {
         return {
-          registration: sale.registration,
-          nameClient: sale.nameClient,
-          totalPrice: sale.totalPrice,
-          payment: sale.payment,
-          vehicle: sale.vehicle
+          message: `Sale ${sale.registration}`,
+          sale: {
+            registration: sale.registration,
+            nameClient: sale.nameClient,
+            totalPrice: sale.totalPrice,
+            payment: sale.payment,
+            vehicle: sale.vehicle,
+            state: sale.state
+          }
         }
       });
     } catch (error) {
