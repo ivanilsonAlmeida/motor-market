@@ -30,7 +30,7 @@ export class UserService {
 
   public async update(email: string, user: User): Promise<IResponse> {
     try {
-     const findUser = await this.repository.findOne(email)
+     const findUser: User = await this.repository.findOne(email)
 
       if (!findUser) {
         return {
@@ -38,7 +38,14 @@ export class UserService {
         };
       }
 
-      const userUpdated = await this.repository.update(user);
+      console.log(findUser);
+      findUser.name = user.name
+      findUser.email = user.email
+      findUser.password = user.password
+      console.log('new finded user => ', findUser);
+      
+      
+      const userUpdated = await this.repository.update(findUser);
 
       if (!userUpdated.matchedCount) {
         return {

@@ -4,14 +4,14 @@ import { TypePaymentEnum } from "../enum/type-payment.enum";
 export class Payment {
   private _totalValue: number;
   private _typePayment: TypePaymentEnum;
-  private _paymentInstallments: string;
+  private _paymentInstallments: number;
   private _priceInstallments: number;
   private _statusPayment: StatusPaymentEnum
 
   constructor(
     totalValue: number,
     typePayment: TypePaymentEnum,
-    paymentInstallments: string,
+    paymentInstallments: number,
     priceInstallments: number,
     statusPayment: StatusPaymentEnum
   ) {
@@ -38,11 +38,11 @@ export class Payment {
     this._typePayment = typePayment;
   }
 
-  get paymentInstallments(): string {
+  get paymentInstallments(): number {
     return this._paymentInstallments;
   }
 
-  set paymentInstallments(paymentInstallments: string) {
+  set paymentInstallments(paymentInstallments: number) {
     this._paymentInstallments = paymentInstallments;
   }
 

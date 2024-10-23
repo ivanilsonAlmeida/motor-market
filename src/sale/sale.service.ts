@@ -19,41 +19,59 @@ export class SaleService {
   public async registerSale(sale: Sale): Promise<ISale> {
     try {      
       sale.state = SaleStateEnum.PENDENT;
-
+      sale.payment = this.paymentService.registerPaymentOrder(sale.payment);
       const saleRegister: Sale = await this.repository.create(sale);
 
-      const paymentOrder: Payment = this.paymentService.paymentOrder(saleRegister.payment);
-
-      if (
-        paymentOrder.statusPayment === StatusPaymentEnum.REPROVED ||
-        paymentOrder.statusPayment === StatusPaymentEnum.PENDENT
-      ) {
-        return {
-          message: `Payment for sale ${saleRegister.registration} not found.`,
-          sale: null
-        };
-      }
-
-      saleRegister.payment = paymentOrder;
-      const confirmSale = await this.confirmSale(saleRegister.registration, saleRegister);
-
+      return {
+        message: `Sale ${saleRegister.registration} registered successfully!`,
+        sale: {
+          registration: saleRegister.registration,
+          nameClient: saleRegister.nameClient,
+          totalPrice: saleRegister.totalPrice,
+          payment: saleRegister.payment,
+          vehicle: saleRegister.vehicle,
+          state: saleRegister.state
+        }
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
     }
   }
 
-  public async confirmSale(registration: number, sale: Sale): Promise<ISale> {
+  public async confirmSale(registration: number): Promise<ISale> {
     try {
-      const currentFinded: Sale = await this.repository.findOne(registration);
+      const saleFinded: Sale = await this.repository.findOne(registration);
 
-      if (!currentFinded) {
+      if (!saleFinded) {
         return;
       }
 
-      currentFinded.state = SaleStateEnum.APPROVED;
+      const paymentOrder: Payment = this.paymentService.confirmPaymentOrder(saleFinded.payment);
 
-      return this.repository.update(currentFinded);
+      if (paymentOrder.statusPayment === StatusPaymentEnum.REPROVED) {
+        return {
+          message: `Payment for sale ${saleFinded.registration} was reproved.`,
+          sale: null
+        };
+      }
+
+      saleFinded.payment = paymentOrder;
+      saleFinded.state = SaleStateEnum.APPROVED;
+
+      const saleConfirmed: Sale = await this.repository.update(saleFinded);
+
+      return {
+        message: `Sale ${saleConfirmed.registration} confirmed successfully!`,
+        sale: {
+          registration: saleConfirmed.registration,
+          nameClient: saleConfirmed.nameClient,
+          totalPrice: saleConfirmed.totalPrice,
+          payment: saleConfirmed.payment,
+          vehicle: saleConfirmed.vehicle,
+          state: saleConfirmed.state
+        }
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;

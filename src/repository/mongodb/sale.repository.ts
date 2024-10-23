@@ -27,7 +27,8 @@ export class SaleRepository implements Repository<Sale>{
         nameClient: sale.nameClient,
         totalPrice: sale.totalPrice,
         payment: sale.payment,
-        vehicle: sale.vehicle
+        vehicle: sale.vehicle,
+        state: sale.state,
       }); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -37,7 +38,9 @@ export class SaleRepository implements Repository<Sale>{
 
   public async findOne(registration: number) {
     try {
-      return this.saleModel.findOne({registration}); 
+      return this.saleModel.findOne({
+        registration
+      }); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

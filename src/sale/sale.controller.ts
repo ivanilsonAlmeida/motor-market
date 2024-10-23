@@ -15,8 +15,8 @@ export class SaleController {
   }
 
   @Put(':registration')
-  public checkout(@Param('registration') registration: number, @Body() sale: Sale) {
-    return this.saleService.confirmSale(registration, sale);
+  public checkout(@Param('registration') registration: number) {
+    return this.saleService.confirmSale(registration);
   }
 
   @Get('sales')
