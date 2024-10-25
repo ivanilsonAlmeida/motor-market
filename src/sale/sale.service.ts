@@ -41,7 +41,7 @@ export class SaleService {
 
   public async confirmSale(registration: number): Promise<ISale> {
     try {
-      const saleFinded: Sale = await this.repository.findOne(registration);
+      const saleFinded = await this.repository.findOne(registration);
 
       if (!saleFinded) {
         return;
@@ -59,7 +59,7 @@ export class SaleService {
       saleFinded.payment = paymentOrder;
       saleFinded.state = SaleStateEnum.APPROVED;
 
-      const saleConfirmed: Sale = await this.repository.update(saleFinded);
+      const saleConfirmed: Sale = await this.repository.update(saleFinded, saleFinded._id);
 
       return {
         message: `Sale ${saleConfirmed.registration} confirmed successfully!`,

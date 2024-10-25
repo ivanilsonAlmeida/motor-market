@@ -1,5 +1,5 @@
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 import { Sale } from "src/sale/model/sale.model";
 import { Repository } from "./interface/repository.interface";
 import { Injectable, NotImplementedException } from "@nestjs/common";
@@ -20,9 +20,9 @@ export class SaleRepository implements Repository<Sale>{
     }
   }
 
-  public async update(sale: Sale) {
+  public async update(sale: Sale, id: ObjectId) {
     try {
-      return this.saleModel.updateOne({
+      return this.saleModel.findByIdAndUpdate(id, {
         registration: sale.registration,
         nameClient: sale.nameClient,
         totalPrice: sale.totalPrice,

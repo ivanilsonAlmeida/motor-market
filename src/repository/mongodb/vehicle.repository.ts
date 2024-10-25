@@ -1,6 +1,6 @@
 import { Injectable, NotImplementedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, ObjectId } from "mongoose";
 import { Vehicle } from "src/vehicle/model/vehicle.model";
 import { Repository } from "./interface/repository.interface";
 
@@ -31,9 +31,9 @@ export class VehicleRepository implements Repository<Vehicle> {
     }
   }
 
-  public update(vehicle: Vehicle) {
+  public update(vehicle: Vehicle, id: ObjectId) {
     try {
-      return this.vehicleModel.updateOne({
+      return this.vehicleModel.findByIdAndUpdate(id, {
         chassi: vehicle.chassi,
         model: vehicle.model,
         brand: vehicle.brand,

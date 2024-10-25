@@ -38,13 +38,14 @@ export class VehicleService {
         }
       }
 
-      const vehicleUpdated = await this.repository.update(vehicle);
-      
-      if (!vehicleUpdated.matchedCount) {
+      const vehicleUpdated = await this.repository.update(vehicle, vehicleFinded._id);
+
+      if (!vehicleUpdated) {
         return {
           message: `Vehicle cannot be updated!`
         }
       }
+
       return {
         message: `Vehicle updated successfully!`
       }

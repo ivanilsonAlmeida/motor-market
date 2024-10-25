@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Employee } from 'src/employee/model/employee.model';
 import { Repository } from './interface/repository.interface';
 
@@ -20,9 +20,9 @@ export class EmployeeRepository implements Repository<Employee> {
     }
   }
 
-  public update(employee: Employee) {
+  public update(employee: Employee, id: ObjectId) {
     try {
-      return this.employeeModel.updateOne({
+      return this.employeeModel.findByIdAndUpdate(id, {
         name: employee.name,
         email: employee.email,
         password: employee.password,

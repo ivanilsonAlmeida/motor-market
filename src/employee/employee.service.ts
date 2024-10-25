@@ -36,7 +36,7 @@ export class EmployeeService {
         return;
       }
 
-      const employeeUpdated = await this.repository.update(employee);
+      const employeeUpdated = await this.repository.update(employee, employeeFinded._id);
 
       if (!employeeUpdated.matchedCount) {
         return {
