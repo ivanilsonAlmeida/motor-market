@@ -8,7 +8,7 @@ Feel free to analyze and if you have any questions, you can contact me at ivan.a
 
 ## Setup
 
-Add your mongodb uri to the "config/keys.ts file"
+Add your mongodb uri to the "config/env.ts file"
 
 ## Installation
 

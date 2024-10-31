@@ -34,10 +34,3 @@ const configService = new ConfigService();
   providers: [AppService],
 })
 export class AppModule {}
-
-
-/*
-    MongooseModule.forRoot(
-      `${configService.get<string>('DATA_BASE_BASE_URL_LOCAL')}${configService.get('DATA_BASE')}`
-    ),
-*/
