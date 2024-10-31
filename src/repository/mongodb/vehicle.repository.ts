@@ -61,7 +61,7 @@ export class VehicleRepository implements Repository<Vehicle> {
 
   public findAll() {
     try {
-      return this.vehicleModel.find(); 
+      return this.vehicleModel.find().exec();
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

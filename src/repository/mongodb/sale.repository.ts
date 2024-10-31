@@ -13,7 +13,7 @@ export class SaleRepository implements Repository<Sale>{
 
   public async create(sale: Sale) {
     try {
-      return this.saleModel.create(sale); 
+      return this.saleModel.create(sale);
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
@@ -29,7 +29,9 @@ export class SaleRepository implements Repository<Sale>{
         payment: sale.payment,
         vehicle: sale.vehicle,
         state: sale.state,
-      }); 
+      }, {
+        new: true
+      });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
@@ -49,7 +51,7 @@ export class SaleRepository implements Repository<Sale>{
 
   public async findAll() {
     try {
-      return this.saleModel.find(); 
+      return this.saleModel.find().exec(); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

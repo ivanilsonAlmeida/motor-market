@@ -5,8 +5,8 @@ import { ISale } from './interface/sale.interface';
 import { SaleStateEnum } from './enum/sale.state';
 import { PaymentService } from 'src/payment/payment.service';
 import { Payment } from 'src/payment/model/payment.model';
-import { log } from 'console';
 import { StatusPaymentEnum } from 'src/payment/enum/status-payment.enum';
+import { SaleDto } from './dto/Sale.dto';
 
 @Injectable()
 export class SaleService {
@@ -41,10 +41,20 @@ export class SaleService {
 
   public async confirmSale(registration: number): Promise<ISale> {
     try {
-      const saleFinded = await this.repository.findOne(registration);
+      const saleFinded: SaleDto = await this.repository.findOne(registration);
 
-      if (!saleFinded) {
-        return;
+      if (saleFinded.state === SaleStateEnum.APPROVED) {
+        return {
+          message: `Sale ${saleFinded.registration} has already been approved.`,
+          sale: {
+            registration: saleFinded.registration,
+            nameClient: saleFinded.nameClient,
+            totalPrice: saleFinded.totalPrice,
+            payment: saleFinded.payment,
+            vehicle: saleFinded.vehicle,
+            state: saleFinded.state
+          }
+        };
       }
 
       const paymentOrder: Payment = this.paymentService.confirmPaymentOrder(saleFinded.payment);
@@ -59,10 +69,20 @@ export class SaleService {
       saleFinded.payment = paymentOrder;
       saleFinded.state = SaleStateEnum.APPROVED;
 
-      const saleConfirmed: Sale = await this.repository.update(saleFinded, saleFinded._id);
+      const saleConfirmed: Sale = await this.repository.update(
+        new Sale(
+          saleFinded.registration, 
+          saleFinded.nameClient, 
+          saleFinded.totalPrice, 
+          saleFinded.payment, 
+          saleFinded.vehicle, 
+          saleFinded.state
+        ), 
+        saleFinded._id
+      );
 
       return {
-        message: `Sale ${saleConfirmed.registration} confirmed successfully!`,
+        message: `Sale ${saleConfirmed.registration} confirmed successfully.`,
         sale: {
           registration: saleConfirmed.registration,
           nameClient: saleConfirmed.nameClient,

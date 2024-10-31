@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { SaleModule } from './sale/sale.module';
 import { PaymentModule } from './payment/payment.module';
+import config from './config/env';
 
 const configService = new ConfigService();
 
@@ -20,7 +21,7 @@ const configService = new ConfigService();
       isGlobal: true
     }),
     MongooseModule.forRoot(
-      `${configService.get<string>('DATA_BASE_BASE_URL_LOCAL')}${configService.get('DATA_BASE')}`
+      `${config.dataBaseUrlLocal}${config.dataBase}`
     ),
     RepositoryModule,
     EmployeeModule,
@@ -33,3 +34,10 @@ const configService = new ConfigService();
   providers: [AppService],
 })
 export class AppModule {}
+
+
+/*
+    MongooseModule.forRoot(
+      `${configService.get<string>('DATA_BASE_BASE_URL_LOCAL')}${configService.get('DATA_BASE')}`
+    ),
+*/

@@ -57,7 +57,7 @@ export class UserRepository implements Repository<User> {
 
   public findAll() {
     try {
-      return this.userModel.find(); 
+      return this.userModel.find().exec(); 
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

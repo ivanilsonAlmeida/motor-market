@@ -59,7 +59,7 @@ export class EmployeeRepository implements Repository<Employee> {
 
   public findAll() {
     try {
-      return this.employeeModel.find();
+      return this.employeeModel.find().exec();
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
