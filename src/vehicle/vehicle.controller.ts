@@ -16,6 +16,7 @@ export class VehicleController {
   @Roles(RoleEnum.USER)
   @UseGuards(AuthGuard)
   public createVehicle(@Body() vehicle: Vehicle) {
+    //TODO - upload de foto do veiculo
     return this.service.create(vehicle);
   }
   
