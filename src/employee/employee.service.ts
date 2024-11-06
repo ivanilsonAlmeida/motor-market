@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
 import { EmployeeRepository } from 'src/repository/mongodb/employee.repository';
 import { Employee } from './model/employee.model';
 import { IResponse } from 'src/shared/interface/response.interface';
@@ -8,6 +8,7 @@ import { IEmployee } from './interface/employee.interface';
 export class EmployeeService {
 
   constructor(
+    @Inject()
     private readonly repository: EmployeeRepository
   ) {}
 
