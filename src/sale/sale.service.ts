@@ -17,7 +17,8 @@ export class SaleService {
   ) {}
 
   public async registerSale(sale: Sale): Promise<ISale> {
-    try {      
+    try {
+      //TODO - include count for sale like 'id'
       sale.state = SaleStateEnum.PENDENT;
       sale.payment = this.paymentService.registerPaymentOrder(sale.payment);
       const saleRegister: Sale = await this.repository.create(sale);
