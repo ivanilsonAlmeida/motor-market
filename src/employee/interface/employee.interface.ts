@@ -1,4 +1,4 @@
-import { IUser } from "src/user/interface/user.interface";
+import { IUser } from 'src/user/interface/user.interface';
 
 export interface IEmployee extends IUser {
   registration: number;

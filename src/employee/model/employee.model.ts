@@ -1,11 +1,17 @@
-import { User } from "../../user/model/user.model";
+import { User } from '../../user/model/user.model';
 
 export class Employee extends User {
   private _registration: number;
   private _userRole: string;
 
-  constructor(name: string, email: string, password: string, registration: number, userRole: string) {
-    super(name, email, password)
+  constructor(
+    name: string,
+    email: string,
+    password: string,
+    registration: number,
+    userRole: string,
+  ) {
+    super(name, email, password);
     this._registration = registration;
     this._userRole = userRole;
   }

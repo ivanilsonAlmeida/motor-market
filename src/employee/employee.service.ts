@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { EmployeeRepository } from 'src/repository/mongodb/employee.repository';
 import { Employee } from './model/employee.model';
 import { IResponse } from 'src/shared/interface/response.interface';
@@ -6,10 +6,9 @@ import { IEmployee } from './interface/employee.interface';
 
 @Injectable()
 export class EmployeeService {
-
   constructor(
     @Inject()
-    private readonly repository: EmployeeRepository
+    private readonly repository: EmployeeRepository,
   ) {}
 
   public async create(employee: Employee): Promise<IResponse> {
@@ -21,15 +20,18 @@ export class EmployeeService {
       }
 
       return {
-        message: `Employee ${employee.name} created successfully!`
-      }
+        message: `Employee ${employee.name} created successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
-      return error?.data
+      return error?.data;
     }
   }
 
-  public async update(registration: number, employee: Employee): Promise<IResponse> {
+  public async update(
+    registration: number,
+    employee: Employee,
+  ): Promise<IResponse> {
     try {
       const employeeFinded = await this.repository.findOne(registration);
 
@@ -37,17 +39,20 @@ export class EmployeeService {
         return;
       }
 
-      const employeeUpdated = await this.repository.update(employee, employeeFinded._id);
+      const employeeUpdated = await this.repository.update(
+        employee,
+        employeeFinded._id,
+      );
 
       if (!employeeUpdated.matchedCount) {
         return {
-          message: `User cannot be updated!`
-        }
+          message: `User cannot be updated!`,
+        };
       }
 
       return {
-        message: `Employee ${employee.name} updated successfully!`
-      }
+        message: `Employee ${employee.name} updated successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -66,13 +71,13 @@ export class EmployeeService {
 
       if (!employeeDeleted.deletedCount) {
         return {
-          message: `Employee with mail ${registration} do not exist!`
+          message: `Employee with mail ${registration} do not exist!`,
         };
       }
 
       return {
-        message: `Resource successfully deleted.`
-      }
+        message: `Resource successfully deleted.`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -93,9 +98,9 @@ export class EmployeeService {
           email: employee.email,
           password: employee.password,
           registration: employee.registration,
-          userRole: employee.userRole
-        }
-      })
+          userRole: employee.userRole,
+        };
+      });
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -111,8 +116,8 @@ export class EmployeeService {
         email: employee.email,
         password: employee.password,
         registration: employee.registration,
-        userRole: employee.userRole
-      }
+        userRole: employee.userRole,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;

@@ -6,9 +6,8 @@ import { Repository } from './interface/repository.interface';
 
 @Injectable()
 export class EmployeeRepository implements Repository<Employee> {
-
   constructor(
-    @InjectModel(Employee.name) private readonly employeeModel: Model<Employee>
+    @InjectModel(Employee.name) private readonly employeeModel: Model<Employee>,
   ) {}
 
   public create(employee: Employee) {
@@ -27,7 +26,7 @@ export class EmployeeRepository implements Repository<Employee> {
         email: employee.email,
         password: employee.password,
         registration: employee.registration,
-        userRole: employee.userRole
+        userRole: employee.userRole,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -38,7 +37,7 @@ export class EmployeeRepository implements Repository<Employee> {
   public delete(registration: number) {
     try {
       return this.employeeModel.deleteOne({
-        registration
+        registration,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -49,7 +48,7 @@ export class EmployeeRepository implements Repository<Employee> {
   public findOne(registration: number) {
     try {
       return this.employeeModel.findOne({
-        registration
+        registration,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);

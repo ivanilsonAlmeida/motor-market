@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Sale } from './model/sale.model';
 import { SaleRepository } from 'src/repository/mongodb/sale.repository';
 import { ISale } from './interface/sale.interface';
@@ -10,10 +10,9 @@ import { SaleDto } from './dto/Sale.dto';
 
 @Injectable()
 export class SaleService {
-
   constructor(
     private readonly repository: SaleRepository,
-    private readonly paymentService: PaymentService
+    private readonly paymentService: PaymentService,
   ) {}
 
   public async registerSale(sale: Sale): Promise<ISale> {
@@ -31,8 +30,8 @@ export class SaleService {
           totalPrice: saleRegister.totalPrice,
           payment: saleRegister.payment,
           vehicle: saleRegister.vehicle,
-          state: saleRegister.state
-        }
+          state: saleRegister.state,
+        },
       };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -53,17 +52,19 @@ export class SaleService {
             totalPrice: saleFinded.totalPrice,
             payment: saleFinded.payment,
             vehicle: saleFinded.vehicle,
-            state: saleFinded.state
-          }
+            state: saleFinded.state,
+          },
         };
       }
 
-      const paymentOrder: Payment = this.paymentService.confirmPaymentOrder(saleFinded.payment);
+      const paymentOrder: Payment = this.paymentService.confirmPaymentOrder(
+        saleFinded.payment,
+      );
 
       if (paymentOrder.statusPayment === StatusPaymentEnum.REPROVED) {
         return {
           message: `Payment for sale ${saleFinded.registration} was reproved.`,
-          sale: null
+          sale: null,
         };
       }
 
@@ -72,14 +73,14 @@ export class SaleService {
 
       const saleConfirmed: Sale = await this.repository.update(
         new Sale(
-          saleFinded.registration, 
-          saleFinded.nameClient, 
-          saleFinded.totalPrice, 
-          saleFinded.payment, 
-          saleFinded.vehicle, 
-          saleFinded.state
-        ), 
-        saleFinded._id
+          saleFinded.registration,
+          saleFinded.nameClient,
+          saleFinded.totalPrice,
+          saleFinded.payment,
+          saleFinded.vehicle,
+          saleFinded.state,
+        ),
+        saleFinded._id,
       );
 
       return {
@@ -90,8 +91,8 @@ export class SaleService {
           totalPrice: saleConfirmed.totalPrice,
           payment: saleConfirmed.payment,
           vehicle: saleConfirmed.vehicle,
-          state: saleConfirmed.state
-        }
+          state: saleConfirmed.state,
+        },
       };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -111,9 +112,9 @@ export class SaleService {
           totalPrice: sale.totalPrice,
           payment: sale.payment,
           vehicle: sale.vehicle,
-          state: sale.state
-        }
-      }
+          state: sale.state,
+        },
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -137,9 +138,9 @@ export class SaleService {
             totalPrice: sale.totalPrice,
             payment: sale.payment,
             vehicle: sale.vehicle,
-            state: sale.state
-          }
-        }
+            state: sale.state,
+          },
+        };
       });
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);

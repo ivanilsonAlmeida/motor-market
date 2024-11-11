@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
-import { Payment } from "src/payment/model/payment.model";
-import { SaleStateEnum } from "src/sale/enum/sale.state";
-import { Vehicle } from "src/vehicle/model/vehicle.model";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
+import { Payment } from 'src/payment/model/payment.model';
+import { SaleStateEnum } from 'src/sale/enum/sale.state';
+import { Vehicle } from 'src/vehicle/model/vehicle.model';
 
 export type SaleSchema = HydratedDocument<SaleDto>;
 
@@ -10,10 +10,10 @@ export type SaleSchema = HydratedDocument<SaleDto>;
 export class SaleDto {
   @Prop()
   registration: number;
-  
+
   @Prop()
   nameClient: string;
-  
+
   @Prop()
   totalPrice: number;
 

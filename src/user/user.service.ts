@@ -6,22 +6,19 @@ import { UserRepository } from 'src/repository/mongodb/user.repository';
 
 @Injectable()
 export class UserService {
-
-  constructor(
-    private readonly repository: UserRepository
-  ) {}
+  constructor(private readonly repository: UserRepository) {}
 
   public async create(user: User): Promise<IResponse> {
     try {
       const userCreated = await this.repository.create(user);
-      
+
       if (!userCreated) {
         return;
       }
 
       return {
-        message: `User ${user.name} created successfully!`
-      }
+        message: `User ${user.name} created successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -30,11 +27,11 @@ export class UserService {
 
   public async update(email: string, user: User): Promise<IResponse> {
     try {
-     const findUser = await this.repository.findOne(email)
+      const findUser = await this.repository.findOne(email);
 
       if (!findUser) {
         return {
-          message: `User ${email} don't finded!`
+          message: `User ${email} don't finded!`,
         };
       }
 
@@ -42,13 +39,13 @@ export class UserService {
 
       if (!userUpdated) {
         return {
-          message: `User cannot be updated!`
-        }
+          message: `User cannot be updated!`,
+        };
       }
 
       return {
-        message: `User ${user.name} updated successfully!`
-      }
+        message: `User ${user.name} updated successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -57,12 +54,11 @@ export class UserService {
 
   public async delete(email: string): Promise<IResponse> {
     try {
-
       const findUser = await this.repository.findOne(email);
-      
+
       if (!findUser) {
         return {
-          message: `User ${email} don't finded!`
+          message: `User ${email} don't finded!`,
         };
       }
 
@@ -70,12 +66,12 @@ export class UserService {
 
       if (!userDeleted.deletedCount) {
         return {
-          message: `User with mail ${email} do not exist!`
+          message: `User with mail ${email} do not exist!`,
         };
       }
 
       return {
-        message: `Resource successfully deleted.`
+        message: `Resource successfully deleted.`,
       };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -95,8 +91,8 @@ export class UserService {
         return {
           name: user.name,
           email: user.email,
-          password: user.password
-        }
+          password: user.password,
+        };
       });
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -106,17 +102,16 @@ export class UserService {
 
   public async find(email: string): Promise<IUser> {
     try {
-     const user = await this.repository.findOne(email);
+      const user = await this.repository.findOne(email);
 
       return {
         name: user.name,
         email: user.email,
-        password: user.password
-      }
+        password: user.password,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
     }
   }
-
 }

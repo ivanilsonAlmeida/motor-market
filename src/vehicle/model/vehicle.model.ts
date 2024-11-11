@@ -6,15 +6,15 @@ export class Vehicle {
   private _color: string;
   private _motor: string;
   private _hp: string;
-  
+
   constructor(
     chassi: string,
-    model: string, 
-    brand: string, 
-    year: number, 
-    color: string, 
-    motor: string, 
-    hp: string
+    model: string,
+    brand: string,
+    year: number,
+    color: string,
+    motor: string,
+    hp: string,
   ) {
     this._chassi = chassi;
     this._model = model;

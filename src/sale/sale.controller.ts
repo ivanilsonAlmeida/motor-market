@@ -1,4 +1,12 @@
-import { Body, Controller, Get, NotImplementedException, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { Sale } from './model/sale.model';
 import { SaleService } from './sale.service';
 import { Roles } from 'src/auth/roles/role.decorator';
@@ -7,10 +15,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('sale')
 export class SaleController {
-
-  constructor(
-    private readonly saleService: SaleService
-  ) {}
+  constructor(private readonly saleService: SaleService) {}
 
   @Post('/')
   @Roles(RoleEnum.USER)

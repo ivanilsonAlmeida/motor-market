@@ -6,6 +6,6 @@ import { RepositoryModule } from 'src/repository/repository.module';
 @Module({
   providers: [EmployeeService],
   controllers: [EmployeeController],
-  imports: [RepositoryModule]
+  imports: [RepositoryModule],
 })
 export class EmployeeModule {}

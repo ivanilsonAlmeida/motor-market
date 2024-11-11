@@ -4,16 +4,12 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
-  public async signIn(
-    email: string,
-    pass: string
-  ) {
+  public async signIn(email: string, pass: string) {
     const user = await this.userService.find(email);
 
     if (user?.password !== pass) {
@@ -22,10 +18,10 @@ export class AuthService {
 
     const payload = {
       sub: user.email,
-      userName: user.name
-    }
+      userName: user.name,
+    };
     return {
-      access_token: await this.jwtService.signAsync(payload)
+      access_token: await this.jwtService.signAsync(payload),
     };
   }
 }

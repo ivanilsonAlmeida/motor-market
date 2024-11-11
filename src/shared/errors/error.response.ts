@@ -1,3 +1,1 @@
-export class ErrorResponse extends Error {
-  
-}
+export class ErrorResponse extends Error {}

@@ -13,25 +13,26 @@ import { SaleSchema } from './mongodb/schema/sale.schema';
 import { Sale } from 'src/sale/model/sale.model';
 import { SaleRepository } from './mongodb/sale.repository';
 
-
 @Module({
   providers: [
-    UserRepository, 
-    EmployeeRepository, 
+    UserRepository,
+    EmployeeRepository,
     VehicleRepository,
-    SaleRepository
+    SaleRepository,
   ],
   exports: [
-    UserRepository, 
-    EmployeeRepository, 
+    UserRepository,
+    EmployeeRepository,
     VehicleRepository,
-    SaleRepository
+    SaleRepository,
   ],
   imports: [
-    MongooseModule.forFeature([{name: User.name, schema: UserSchema}]),
-    MongooseModule.forFeature([{name: Employee.name, schema: EmployeeSchema}]),
-    MongooseModule.forFeature([{name: Vehicle.name, schema: VehicleSchema}]),
-    MongooseModule.forFeature([{name: Sale.name, schema: SaleSchema}])
-  ]
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: Employee.name, schema: EmployeeSchema },
+    ]),
+    MongooseModule.forFeature([{ name: Vehicle.name, schema: VehicleSchema }]),
+    MongooseModule.forFeature([{ name: Sale.name, schema: SaleSchema }]),
+  ],
 })
 export class RepositoryModule {}

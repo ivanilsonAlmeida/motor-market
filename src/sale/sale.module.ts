@@ -7,9 +7,6 @@ import { PaymentModule } from 'src/payment/payment.module';
 @Module({
   providers: [SaleService],
   controllers: [SaleController],
-  imports: [
-    RepositoryModule, 
-    PaymentModule
-  ]
+  imports: [RepositoryModule, PaymentModule],
 })
 export class SaleModule {}

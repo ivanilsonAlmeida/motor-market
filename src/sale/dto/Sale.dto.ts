@@ -1,7 +1,7 @@
-import { Payment } from "src/payment/model/payment.model";
-import { Vehicle } from "src/vehicle/model/vehicle.model";
-import { SaleStateEnum } from "../enum/sale.state";
-import { ObjectId } from "mongoose";
+import { Payment } from 'src/payment/model/payment.model';
+import { Vehicle } from 'src/vehicle/model/vehicle.model';
+import { SaleStateEnum } from '../enum/sale.state';
+import { ObjectId } from 'mongoose';
 
 export class SaleDto {
   private __id: ObjectId;
@@ -19,15 +19,15 @@ export class SaleDto {
     totalPrice: number,
     payment: Payment,
     vehicle: Vehicle,
-    state: SaleStateEnum
+    state: SaleStateEnum,
   ) {
-      this.__id = _id;
-      this._registration = registration;
-      this._nameClient = nameClient;
-      this._totalPrice = totalPrice;
-      this._payment = payment;
-      this._vehicle = vehicle;
-      this._state = state
+    this.__id = _id;
+    this._registration = registration;
+    this._nameClient = nameClient;
+    this._totalPrice = totalPrice;
+    this._payment = payment;
+    this._vehicle = vehicle;
+    this._state = state;
   }
 
   get _id(): ObjectId {

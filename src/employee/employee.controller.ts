@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { Employee } from './model/employee.model';
 import { AuthGuard } from 'src/auth/auth.guard';
@@ -7,7 +16,6 @@ import { RoleEnum } from 'src/auth/roles/enum/role.enum';
 
 @Controller('employee')
 export class EmployeeController {
-
   constructor(private readonly service: EmployeeService) {}
 
   @UseGuards(AuthGuard)
@@ -20,7 +28,10 @@ export class EmployeeController {
   @UseGuards(AuthGuard)
   @Roles(RoleEnum.ADMIN)
   @Put(':registration')
-  public updateEmployee(@Param('registration') registration: number, @Body() employee: Employee) {
+  public updateEmployee(
+    @Param('registration') registration: number,
+    @Body() employee: Employee,
+  ) {
     return this.service.update(registration, employee);
   }
 

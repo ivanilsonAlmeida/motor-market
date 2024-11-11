@@ -3,10 +3,8 @@ import { HydratedDocument } from 'mongoose';
 
 export type UserSchema = HydratedDocument<UserDto>;
 
-
 @Schema()
 export class UserDto {
-
   @Prop()
   name: string;
 

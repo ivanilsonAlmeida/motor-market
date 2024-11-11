@@ -1,14 +1,13 @@
-import { Injectable, NotImplementedException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model, ObjectId } from "mongoose";
-import { Vehicle } from "src/vehicle/model/vehicle.model";
-import { Repository } from "./interface/repository.interface";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { Vehicle } from 'src/vehicle/model/vehicle.model';
+import { Repository } from './interface/repository.interface';
 
 @Injectable()
 export class VehicleRepository implements Repository<Vehicle> {
-
   constructor(
-    @InjectModel(Vehicle.name) private readonly vehicleModel: Model<Vehicle>
+    @InjectModel(Vehicle.name) private readonly vehicleModel: Model<Vehicle>,
   ) {}
 
   public create(vehicle: Vehicle) {
@@ -23,7 +22,7 @@ export class VehicleRepository implements Repository<Vehicle> {
   public delete(chassi: string) {
     try {
       return this.vehicleModel.deleteOne({
-        chassi
+        chassi,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -40,7 +39,7 @@ export class VehicleRepository implements Repository<Vehicle> {
         year: vehicle.year,
         color: vehicle.color,
         motor: vehicle.motor,
-        hp: vehicle.hp
+        hp: vehicle.hp,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -51,8 +50,8 @@ export class VehicleRepository implements Repository<Vehicle> {
   public findOne(chassi: string) {
     try {
       return this.vehicleModel.findOne({
-        chassi
-      }); 
+        chassi,
+      });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

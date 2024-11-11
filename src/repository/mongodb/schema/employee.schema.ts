@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
-import { UserDto } from "./user.schema";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
+import { UserDto } from './user.schema';
 
 export type EmployeeSchema = HydratedDocument<EmployeeDto>;
 
@@ -8,7 +8,7 @@ export type EmployeeSchema = HydratedDocument<EmployeeDto>;
 export class EmployeeDto extends UserDto {
   @Prop()
   registration: number;
-  
+
   @Prop()
   userRole: string;
 }

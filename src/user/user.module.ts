@@ -7,8 +7,6 @@ import { RepositoryModule } from 'src/repository/repository.module';
   providers: [UserService],
   exports: [UserService],
   controllers: [UserController],
-  imports: [
-    RepositoryModule
-  ]
+  imports: [RepositoryModule],
 })
 export class UserModule {}

@@ -1,7 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
-import { User } from "src/user/model/user.model";
-import { UserDto } from "./user.schema";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type VehicleSchema = HydratedDocument<VehicleDto>;
 
@@ -9,19 +7,19 @@ export type VehicleSchema = HydratedDocument<VehicleDto>;
 export class VehicleDto {
   @Prop()
   model: string;
-  
+
   @Prop()
   brand: string;
-  
+
   @Prop()
   year: number;
-  
+
   @Prop()
   color: string;
-  
+
   @Prop()
   motor: string;
-  
+
   @Prop()
   hp: string;
 }

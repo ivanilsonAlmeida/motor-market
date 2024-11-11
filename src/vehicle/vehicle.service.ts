@@ -6,22 +6,19 @@ import { IVehicle } from './interface/vehicle.interface';
 
 @Injectable()
 export class VehicleService {
-
-  constructor(
-    private readonly repository: VehicleRepository
-  ) {}
+  constructor(private readonly repository: VehicleRepository) {}
 
   public async create(vehicle: Vehicle): Promise<IResponse> {
     try {
-      const vehicleCreated = await this.repository.create(vehicle)
+      const vehicleCreated = await this.repository.create(vehicle);
 
       if (!vehicleCreated) {
         return;
       }
 
       return {
-        message: `Vehicle created successfully!`
-      }
+        message: `Vehicle created successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -34,21 +31,24 @@ export class VehicleService {
 
       if (!vehicleFinded) {
         return {
-          message: `Vehicle with chassi ${chassi} don't finded!`
-        }
+          message: `Vehicle with chassi ${chassi} don't finded!`,
+        };
       }
 
-      const vehicleUpdated = await this.repository.update(vehicle, vehicleFinded._id);
+      const vehicleUpdated = await this.repository.update(
+        vehicle,
+        vehicleFinded._id,
+      );
 
       if (!vehicleUpdated) {
         return {
-          message: `Vehicle cannot be updated!`
-        }
+          message: `Vehicle cannot be updated!`,
+        };
       }
 
       return {
-        message: `Vehicle updated successfully!`
-      }
+        message: `Vehicle updated successfully!`,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;
@@ -71,8 +71,8 @@ export class VehicleService {
           year: vehicle.year,
           color: vehicle.color,
           motor: vehicle.motor,
-          hp: vehicle.hp
-        }
+          hp: vehicle.hp,
+        };
       });
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
@@ -91,8 +91,8 @@ export class VehicleService {
         year: vehicle.year,
         color: vehicle.color,
         motor: vehicle.motor,
-        hp: vehicle.hp
-      }
+        hp: vehicle.hp,
+      };
     } catch (error) {
       console.error(`An error occurred in the application: ${error}`);
       return error?.data;

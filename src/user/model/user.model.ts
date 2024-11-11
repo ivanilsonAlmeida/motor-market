@@ -32,5 +32,4 @@ export class User {
   set password(password: string) {
     this._password = password;
   }
-
 }

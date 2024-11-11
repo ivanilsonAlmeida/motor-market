@@ -3,5 +3,5 @@ export enum MethodEnum {
   DELETE,
   UPDATE,
   LIST,
-  GET
+  GET,
 }

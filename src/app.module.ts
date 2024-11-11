@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RepositoryModule } from './repository/repository.module';
 import { EmployeeModule } from './employee/employee.module';
@@ -12,23 +12,19 @@ import { SaleModule } from './sale/sale.module';
 import { PaymentModule } from './payment/payment.module';
 import config from './config/env';
 
-const configService = new ConfigService();
-
 @Module({
   imports: [
-    UserModule, 
+    UserModule,
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
-    MongooseModule.forRoot(
-      `${config.dataBaseUrlLocal}${config.dataBase}`
-    ),
+    MongooseModule.forRoot(`${config.dataBaseUrlLocal}${config.dataBase}`),
     RepositoryModule,
     EmployeeModule,
     AuthModule,
     VehicleModule,
     SaleModule,
-    PaymentModule
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

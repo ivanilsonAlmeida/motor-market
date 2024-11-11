@@ -1,19 +1,18 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model, ObjectId } from "mongoose";
-import { User } from "src/user/model/user.model";
-import { Repository } from "./interface/repository.interface";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { User } from 'src/user/model/user.model';
+import { Repository } from './interface/repository.interface';
 
 @Injectable()
 export class UserRepository implements Repository<User> {
-
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>
+    @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
   public create(user: User) {
     try {
-      return this.userModel.create(user); 
+      return this.userModel.create(user);
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
@@ -23,7 +22,7 @@ export class UserRepository implements Repository<User> {
   public delete(email: string) {
     try {
       return this.userModel.deleteOne({
-        email
+        email,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -36,8 +35,8 @@ export class UserRepository implements Repository<User> {
       return this.userModel.findByIdAndUpdate(id, {
         name: user.name,
         email: user.email,
-        password: user.password
-      })
+        password: user.password,
+      });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;
@@ -47,7 +46,7 @@ export class UserRepository implements Repository<User> {
   public findOne(email: string) {
     try {
       return this.userModel.findOne({
-        email
+        email,
       });
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
@@ -57,7 +56,7 @@ export class UserRepository implements Repository<User> {
 
   public findAll() {
     try {
-      return this.userModel.find().exec(); 
+      return this.userModel.find().exec();
     } catch (error) {
       console.error(`An error occurred in the repository: ${error}`);
       return error?.data;

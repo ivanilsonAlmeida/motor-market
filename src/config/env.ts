@@ -4,6 +4,6 @@ export default {
   dataBaseUrlLocal: 'mongodb://localhost/',
   dataBase: 'local',
   jwt: {
-    secret: 'MY APPLICATION FOR EXAMPLE'
-  }
-}
+    secret: 'MY APPLICATION FOR EXAMPLE',
+  },
+};
