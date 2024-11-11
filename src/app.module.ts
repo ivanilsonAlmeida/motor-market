@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RepositoryModule } from './repository/repository.module';
 import { EmployeeModule } from './employee/employee.module';
@@ -10,15 +10,16 @@ import { AuthModule } from './auth/auth.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { SaleModule } from './sale/sale.module';
 import { PaymentModule } from './payment/payment.module';
-import config from './config/env';
+import configuration from './config/configuration';
+const config = new ConfigService();
 
 @Module({
   imports: [
     UserModule,
     ConfigModule.forRoot({
-      isGlobal: true,
+      load: [configuration],
     }),
-    MongooseModule.forRoot(`${config.dataBaseUrlLocal}${config.dataBase}`),
+    MongooseModule.forRoot(`${config.get<string>('DATA_BASE_BASE_URL_LOCAL')}${config.get<string>('DATA_BASE')}`),
     RepositoryModule,
     EmployeeModule,
     AuthModule,
