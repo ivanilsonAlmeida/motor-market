@@ -1,9 +1,31 @@
-version: "3"
+version: "3.1"
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=local
+      - DATA_BASE_BASE_URL_LOCAL=mongodb://localhost/
+      - DATABASE_USER=test
+      - DATABASE_PASSWORD=test
+      - JWT_SECRET=MY APPLICATION FOR EXAMPLE
+    
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+  #----------------------------------
   mongodb:
     image: mongo:latest
-    environment:
-      - MONGODB_DATABASE="local"
     ports:
       - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
