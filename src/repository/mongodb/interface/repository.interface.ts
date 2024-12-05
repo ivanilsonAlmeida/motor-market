@@ -1,9 +1,25 @@
 import { ObjectId } from 'mongoose';
+import { Sale } from 'src/sale/model/sale.model';
 
-export interface Repository<T> {
+export interface ICreate<T> {
   create(t: T);
-  update(t: T, id: ObjectId);
-  delete(t: string | number);
-  findOne(t: string | number);
-  findAll();
 }
+export interface IDelete {
+  delete(t: string | number): void;
+}
+
+export interface IUpdate<T> {
+  update(t: T, id: ObjectId);
+}
+
+export interface IFindOne<T> {
+  findOne(t: string | number): Promise<T>;
+}
+
+export interface IFindAll<T> {
+  findAll(): Promise<Array<T>>;
+}
+
+export interface ISaleRepository<T> extends ICreate<T>, IUpdate<T>, IFindOne<T>, IFindAll<T> {}
+
+export interface IRepository<T> extends ICreate<T>, IUpdate<T>, IFindOne<T>, IFindAll<T>, IDelete {}

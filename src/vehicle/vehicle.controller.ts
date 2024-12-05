@@ -22,7 +22,7 @@ export class VehicleController {
   @UseGuards(AuthGuard)
   public createVehicle(@Body() vehicle: Vehicle) {
     //TODO - upload de foto do veiculo
-    return this.service.create(vehicle);
+    return this.service.createVehicle(vehicle);
   }
 
   @Put(':chassi')

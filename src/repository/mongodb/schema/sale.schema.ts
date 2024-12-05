@@ -4,10 +4,10 @@ import { Payment } from 'src/payment/model/payment.model';
 import { SaleStateEnum } from 'src/sale/enum/sale.state';
 import { Vehicle } from 'src/vehicle/model/vehicle.model';
 
-export type SaleSchema = HydratedDocument<SaleDto>;
+export type SaleSchema = HydratedDocument<SaleSchemaDto>;
 
 @Schema()
-export class SaleDto {
+export class SaleSchemaDto {
   @Prop()
   registration: number;
 
@@ -27,4 +27,4 @@ export class SaleDto {
   state: SaleStateEnum;
 }
 
-export const SaleSchema = SchemaFactory.createForClass(SaleDto);
+export const SaleSchema = SchemaFactory.createForClass(SaleSchemaDto);

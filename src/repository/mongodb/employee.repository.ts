@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Employee } from 'src/employee/model/employee.model';
-import { Repository } from './interface/repository.interface';
+import { ICreate, IRepository, IUpdate } from './interface/repository.interface';
+
 
 @Injectable()
-export class EmployeeRepository implements Repository<Employee> {
+export class EmployeeRepository implements IRepository<Employee>
+{
   constructor(
     @InjectModel(Employee.name) private readonly employeeModel: Model<Employee>,
   ) {}

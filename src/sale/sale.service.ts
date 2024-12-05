@@ -6,7 +6,8 @@ import { SaleStateEnum } from './enum/sale.state';
 import { PaymentService } from 'src/payment/payment.service';
 import { Payment } from 'src/payment/model/payment.model';
 import { StatusPaymentEnum } from 'src/payment/enum/status-payment.enum';
-import { SaleDto } from './dto/Sale.dto';
+import { SaleDto } from './dto/sale.dto';
+import { ISaleRepository } from 'src/repository/mongodb/interface/repository.interface';
 
 @Injectable()
 export class SaleService {
@@ -41,7 +42,7 @@ export class SaleService {
 
   public async confirmSale(registration: number): Promise<ISale> {
     try {
-      const saleFinded: SaleDto = await this.repository.findOne(registration);
+      const saleFinded: Partial<SaleDto> = await this.repository.findOne(registration);
 
       if (saleFinded.state === SaleStateEnum.APPROVED) {
         return {

@@ -20,7 +20,9 @@ const config = new ConfigService();
       load: [configuration],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(`${config.get<string>('DATA_BASE_BASE_URL_LOCAL')}${config.get<string>('DATA_BASE')}`),
+    MongooseModule.forRoot(
+      `${config.get<string>('DATA_BASE_BASE_URL_LOCAL')}${config.get<string>('DATA_BASE')}`,
+    ),
     RepositoryModule,
     EmployeeModule,
     AuthModule,

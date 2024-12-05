@@ -1,11 +1,11 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Sale } from 'src/sale/model/sale.model';
-import { Repository } from './interface/repository.interface';
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { IRepository, ISaleRepository } from './interface/repository.interface';
 
 @Injectable()
-export class SaleRepository implements Repository<Sale> {
+export class SaleRepository implements ISaleRepository<Sale> {
   constructor(
     @InjectModel(Sale.name) private readonly saleModel: Model<Sale>,
   ) {}
@@ -61,8 +61,5 @@ export class SaleRepository implements Repository<Sale> {
     }
   }
 
-  public async delete(t: string | number) {
-    console.log(t);
-    throw NotImplementedException;
-  }
+
 }

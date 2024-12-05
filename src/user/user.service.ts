@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { User } from './model/user.model';
 import { IUser } from './interface/user.interface';
 import { IResponse } from '../shared/interface/response.interface';
 import { UserRepository } from 'src/repository/mongodb/user.repository';
+import { IRepository } from 'src/repository/mongodb/interface/repository.interface';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
+
   constructor(private readonly repository: UserRepository) {}
 
   public async create(user: User): Promise<IResponse> {
@@ -27,7 +30,7 @@ export class UserService {
 
   public async update(email: string, user: User): Promise<IResponse> {
     try {
-      const findUser = await this.repository.findOne(email);
+      const findUser: Partial<UserDto> = await this.repository.findOne(email);
 
       if (!findUser) {
         return {
@@ -54,7 +57,7 @@ export class UserService {
 
   public async delete(email: string): Promise<IResponse> {
     try {
-      const findUser = await this.repository.findOne(email);
+      const findUser: Partial<User> = await this.repository.findOne(email);
 
       if (!findUser) {
         return {
@@ -62,13 +65,7 @@ export class UserService {
         };
       }
 
-      const userDeleted = await this.repository.delete(email);
-
-      if (!userDeleted.deletedCount) {
-        return {
-          message: `User with mail ${email} do not exist!`,
-        };
-      }
+      await this.repository.delete(email);
 
       return {
         message: `Resource successfully deleted.`,

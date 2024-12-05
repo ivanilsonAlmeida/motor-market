@@ -3,12 +3,14 @@ import { VehicleRepository } from 'src/repository/mongodb/vehicle.repository';
 import { Vehicle } from './model/vehicle.model';
 import { IResponse } from 'src/shared/interface/response.interface';
 import { IVehicle } from './interface/vehicle.interface';
+import { VehicleDto } from './dto/vehicle.dto';
 
 @Injectable()
 export class VehicleService {
+
   constructor(private readonly repository: VehicleRepository) {}
 
-  public async create(vehicle: Vehicle): Promise<IResponse> {
+  public async createVehicle(vehicle: Vehicle): Promise<IResponse> {
     try {
       const vehicleCreated = await this.repository.create(vehicle);
 
@@ -27,7 +29,7 @@ export class VehicleService {
 
   public async update(chassi: string, vehicle: Vehicle): Promise<IResponse> {
     try {
-      const vehicleFinded = await this.repository.findOne(chassi);
+      const vehicleFinded: Partial<VehicleDto> = await this.repository.findOne(chassi);
 
       if (!vehicleFinded) {
         return {

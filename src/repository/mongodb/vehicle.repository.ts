@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { Vehicle } from 'src/vehicle/model/vehicle.model';
-import { Repository } from './interface/repository.interface';
+import { ICreate, IDelete, IFindAll, IFindOne, IRepository, IUpdate } from './interface/repository.interface';
 
 @Injectable()
-export class VehicleRepository implements Repository<Vehicle> {
+export class VehicleRepository implements IRepository<Vehicle>
+{
   constructor(
     @InjectModel(Vehicle.name) private readonly vehicleModel: Model<Vehicle>,
   ) {}
